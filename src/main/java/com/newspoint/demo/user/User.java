@@ -3,6 +3,8 @@ package com.newspoint.demo.user;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @Entity
@@ -18,6 +20,7 @@ public class User {
     @Column(name = "birth_date")
     private String birthDate;
     private String phone_no;
+
 
     public User() {}
 
@@ -39,7 +42,7 @@ public class User {
     }
 
     public String getFirst_name() {
-        return first_name;
+        return first_name.substring(0, 1).toUpperCase() + first_name.substring(1).toLowerCase();
     }
 
     public void setFirst_name(String first_name) {
@@ -47,7 +50,8 @@ public class User {
     }
 
     public String getLast_name() {
-        return last_name;
+
+        return last_name.substring(0, 1).toUpperCase() + last_name.substring(1).toLowerCase();
     }
 
     public void setLast_name(String last_name) {
@@ -69,4 +73,5 @@ public class User {
     public void setPhone_no(String phone_no) {
         this.phone_no = phone_no;
     }
+
 }
