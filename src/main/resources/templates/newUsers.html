@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h3>List of added users</h3>
+
+<hr>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Birth date</th>
+        <th>Phone number</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tempUser : ${usersList}">
+        <td th:text="${tempUser.id}"></td>
+        <td th:text="${tempUser.first_name}"></td>
+        <td th:text="${tempUser.last_name}"></td>
+        <td th:text="${tempUser.birthDate}"></td>
+        <td th:text="${tempUser.phone_no}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+</html>
