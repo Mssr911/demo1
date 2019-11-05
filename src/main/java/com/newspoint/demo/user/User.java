@@ -20,6 +20,7 @@ public class User {
     @Column(name = "birth_date")
     private String birthDate;
     private String phone_no;
+    private Integer age;
 
 
     public User() {}
@@ -74,4 +75,11 @@ public class User {
         this.phone_no = phone_no;
     }
 
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 }

@@ -6,12 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -52,7 +49,7 @@ public class UserService {
 
                     logger.warn("User: " + user[0].trim() + " " + user[1].trim() + " not saved: phone number "
                             + user[3].trim() + " already exists in database.");
-                } else if(user.length == 4 &&
+                } else if (user.length == 4 &&
                         isNumeric(user[3]) && checkPhoneNumber(user[3], newUserList)) {
                     newUserList.add(new User(user[0].trim(), user[1].trim(), user[2].replace('.', '-').trim()));
                     logger.warn("User: " + user[0].trim() + " " + user[1].trim() + " saved without phone number: "
@@ -79,7 +76,7 @@ public class UserService {
             }
 
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            logger.error("Nie udalo sie przeksztalcic pobranego pliku w liste.");
         }
 
         return result;
@@ -99,8 +96,52 @@ public class UserService {
             if (Optional.ofNullable(u.getPhone_no()).orElse("nonum").equals(number)) {
                 return true;
             }
+            java.sql.Date sqlDateNow = new java.sql.Date(new java.util.Date().getTime());
         }
         return false;
     }
+
+    public int setAgeForAllUsers(List<User> userList) {
+
+        try {
+
+            for (User u : userList) {
+
+                String date = u.getBirthDate();
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormatY = new SimpleDateFormat("yyyy");
+                SimpleDateFormat dateFormatM = new SimpleDateFormat("MM");
+                Calendar calendar = Calendar.getInstance();
+
+                // dzisiejsza data
+                String timeString1 = dateFormatY.format(calendar.getTime());
+                String timeString2 = dateFormatM.format(calendar.getTime());
+                int yearToday = Integer.parseInt(timeString1);
+                int monthToday = Integer.parseInt(timeString2);
+
+                // data urodzenia
+                Date date1 = dateFormat.parse(date);
+                String timeString3 = dateFormatY.format(date1.getTime());
+                String timeString4 = dateFormatM.format(date1.getTime());
+                int yearOfBirth = Integer.parseInt(timeString3);
+                int monthOfBirth = Integer.parseInt(timeString4);
+
+                int age = yearToday - yearOfBirth;
+
+                if (monthOfBirth <= monthToday) {
+                    u.setAge(age);
+                } else {
+                    u.setAge(age - 1);
+                }
+
+
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
 }

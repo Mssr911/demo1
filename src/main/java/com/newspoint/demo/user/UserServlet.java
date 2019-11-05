@@ -28,6 +28,9 @@ public class UserServlet {
     public String allUsers(Model model) {
         List<User> userList = repository.findAll(Sort.by("birthDate").ascending());
         Integer numberOfUsers = userList.size();
+
+        service.setAgeForAllUsers(userList);
+
         model.addAttribute("usersList", userList);
         model.addAttribute("numberOfUsers", numberOfUsers);
         return "users";
@@ -47,10 +50,6 @@ public class UserServlet {
         return "the_oldest";
     }
 
-//    @GetMapping("/users")
-//    ResponseEntity<List<User>> findAllUsers() {
-//        return ResponseEntity.ok(repository.findAll());
-//    }
 
     @GetMapping("/upload")
     public String uploadPage() {

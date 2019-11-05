@@ -5,6 +5,7 @@ first_name varchar(20) not null,
 last_name varchar(20) not null,
 birth_date date not null,
 phone_no int(9) unique,
+age int
 );
 
 
