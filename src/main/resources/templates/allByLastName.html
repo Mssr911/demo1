@@ -2,30 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<h3>Added users:</h3>
+<h3 th:text="'Users with last name: ' + ${lastName}"></h3>
 
 <hr>
 
 <table border="1">
     <thead>
     <tr>
-        <th>Id</th>
         <th>First name</th>
         <th>Last name</th>
-        <th>Birth date</th>
+        <th>Age</th>
         <th>Phone number</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="tempUser : ${usersList}">
-        <td th:text="${tempUser.id}"></td>
         <td th:text="${tempUser.firstName}"></td>
         <td th:text="${tempUser.lastName}"></td>
-        <td th:text="${tempUser.birthDate}"></td>
+        <td th:text="${tempUser.age}"></td>
         <td th:text="${tempUser.phoneNo}"></td>
     </tr>
     </tbody>
 </table>
+
 </body>
 
 </html>

@@ -9,6 +9,7 @@
     <table border="1">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>First name</th>
                 <th>Last name</th>
                 <th>Age</th>
@@ -17,10 +18,11 @@
         </thead>
         <tbody>
             <tr th:each="tempUser : ${usersList}">
-                <td th:text="${tempUser.first_name}"></td>
-                <td th:text="${tempUser.last_name}"></td>
+                <td th:text="${tempUser.id}"></td>
+                <td th:text="${tempUser.firstName}"></td>
+                <td th:text="${tempUser.lastName}"></td>
                 <td th:text="${tempUser.age}"></td>
-                <td th:text="${tempUser.phone_no}"></td>
+                <td th:text="${tempUser.phoneNo}"></td>
             </tr>
         </tbody>
     </table>

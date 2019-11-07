@@ -76,7 +76,7 @@ public class UserService {
             }
 
         } catch (IOException e) {
-            logger.error("Nie udalo sie przeksztalcic pobranego pliku w liste.");
+            logger.error("Failed to convert the downloaded file into a list.");
         }
 
         return result;
@@ -93,7 +93,7 @@ public class UserService {
 
     public Boolean checkPhoneNumber(String number, List<User> userList) {
         for (User u : userList) {
-            if (Optional.ofNullable(u.getPhone_no()).orElse("nonum").equals(number)) {
+            if (Optional.ofNullable(u.getPhoneNo()).orElse("nonum").equals(number)) {
                 return true;
             }
             java.sql.Date sqlDateNow = new java.sql.Date(new java.util.Date().getTime());
@@ -138,7 +138,7 @@ public class UserService {
 
             }
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.error("Parsing to int ipmossible.");
         }
         return 0;
     }
